@@ -1,21 +1,34 @@
-<h1>Personajes de Howarts</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <%= link_to 'Buscar personaje', search_page_path, class: 'btn btn-primary' %>
+    </div>
+    <div class="col-md-6">
+      <%= link_to 'Registrar personaje', pages_new_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
 
-<% @characters.each do |character| %>
-  <div>
-    Nombre: <%= character.name %>
-  </div>
-  <div>
-    Locación: <%= character.location %>
-  </div>
-  <div>
-    Casa: <%= character.house %>
-  </div>
-  <br>
-<% end %>
+  <h1>Personajes de Howarts</h1>
 
-<div>
-  <%= link_to 'Buscar personaje', search_page_path %>
-  <%= link_to 'Registrar personaje', pages_new_path %>
+  <% @characters.each do |character| %>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Nombre: <%= character.name %></h5>
+        <p class="card-text">Locación: <%= character.location %></p>
+        <p class="card-text">Casa: <%= character.house %></p>
+      </div>
+    </div>
+    <br>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= link_to 'Buscar personaje', search_page_path, class: 'btn btn-primary' %>
+    </div>
+    <div class="col-md-6">
+      <%= link_to 'Registrar personaje', pages_new_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
 </div>
 
 

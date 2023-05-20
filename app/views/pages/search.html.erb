@@ -1,23 +1,83 @@
-<h1>Búsqueda de Personajes</h1>
+  <div class="container">
+    <h1>Búsqueda de Personajes</h1>
 
-<%= form_tag search_page_path, method: :get do %>
-  <%= label_tag :character_id, 'Selecciona un personaje:' %>
-  <%= select_tag :character_id, options_for_select(@characters.map { |c| [c.name, c.id] }) %>
-  <%= submit_tag 'Buscar' %>
-<% end %>
+    <%= form_tag search_page_path, method: :get do %>
+      <div class="form-group row">
+        <%= label_tag :search_by, 'Buscar por:', class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-4">
+          <%= select_tag :search_by, options_for_select([['Name', 'name'], ['Location', 'location'], ['House', 'house']], params[:search_by]), prompt: 'Seleccionar opción', class: "form-control" %>
+        </div>
+      </div>
 
-<% if @selected_character %>
-  <div>
-    Nombre: <%= @selected_character.name %>
-  </div>
-  <div>
-    Locación: <%= @selected_character.location %>
-  </div>
-  <div>
-    Casa: <%= @selected_character.house %>
-  </div>
-<% else %>
-  <p>No se ha seleccionado ningún personaje.</p>
-<% end %>
+      <% case params[:search_by]
+         when 'name' %>
+           <div class="form-group">
+             <%= label_tag :character_name, 'Nombre del personaje:' %>
+             <%= text_field_tag :character_name, params[:character_name], class: "form-control" %>
+           </div>
+         <% when 'location' %>
+           <div class="form-group">
+             <%= label_tag :character_location, 'Ubicación del personaje:' %>
+             <%= text_field_tag :character_location, params[:character_location], class: "form-control" %>
+           </div>
+         <% when 'house' %>
+           <div class="form-group">
+             <%= label_tag :character_house, 'Casa del personaje:' %>
+             <%= text_field_tag :character_house, params[:character_house], class: "form-control" %>
+           </div>
+         <% end %>
 
-<%= link_to 'Volver', pages_path %>
+      <%= submit_tag 'Buscar', class: "btn btn-primary" %>
+    <% end %>
+
+    <% if @selected_character %>
+      <h2>Personaje encontrado:</h2>
+      <div>
+        Nombre: <%= @selected_character.name %>
+      </div>
+      <div>
+        Locación: <%= @selected_character.location %>
+      </div>
+      <div>
+        Casa: <%= @selected_character.house %>
+      </div>
+    <% elsif @characters.present? %>
+      <h2>Personajes encontrados:</h2>
+      <% @characters.each do |character| %>
+        <% if params[:character_name].present? && character.name.downcase.include?(params[:character_name].downcase) || 
+             params[:character_location].present? && character.location.downcase.include?(params[:character_location].downcase) || 
+             params[:character_house].present? && character.house.downcase.include?(params[:character_house].downcase) %>
+          <div>
+            Nombre: <%= character.name %>
+          </div>
+          <div>
+            Locación: <%= character.location %>
+          </div>
+          <div>
+            Casa: <%= character.house %>
+          </div>
+          <br>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>No se ha encontrado ningún personaje.</p>
+    <% end %>
+
+    <%= link_to 'Volver', pages_path, class: "btn btn-link" %>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

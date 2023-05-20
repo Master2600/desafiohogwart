@@ -12,9 +12,13 @@ class PagesController < ApplicationController
     if @character.save
       redirect_to pages_path, notice: 'Personaje registrado exitosamente.'
     else
-      render :new
+      flash.now[:error] = "No se pudo registrar el personaje."
+      render :new, status: :unprocessable_entity
     end
   end
+  
+  
+  
 
   def search
     @characters = Character.all
@@ -27,7 +31,3 @@ class PagesController < ApplicationController
     params.require(:character).permit(:name, :location, :house)
   end
 end
-
-
-
-
