@@ -1,0 +1,23 @@
+<h1>Personajes de Howarts</h1>
+
+<% @characters.each do |character| %>
+  <div>
+    Nombre: <%= character.name %>
+  </div>
+  <div>
+    Locación: <%= character.location %>
+  </div>
+  <div>
+    Casa: <%= character.house %>
+  </div>
+  <br>
+<% end %>
+
+<div>
+  <%= link_to 'Buscar personaje', search_page_path %>
+  <%= link_to 'Registrar personaje', pages_new_path %>
+</div>
+
+
+
+

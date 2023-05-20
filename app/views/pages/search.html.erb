@@ -1,0 +1,23 @@
+<h1>Búsqueda de Personajes</h1>
+
+<%= form_tag search_page_path, method: :get do %>
+  <%= label_tag :character_id, 'Selecciona un personaje:' %>
+  <%= select_tag :character_id, options_for_select(@characters.map { |c| [c.name, c.id] }) %>
+  <%= submit_tag 'Buscar' %>
+<% end %>
+
+<% if @selected_character %>
+  <div>
+    Nombre: <%= @selected_character.name %>
+  </div>
+  <div>
+    Locación: <%= @selected_character.location %>
+  </div>
+  <div>
+    Casa: <%= @selected_character.house %>
+  </div>
+<% else %>
+  <p>No se ha seleccionado ningún personaje.</p>
+<% end %>
+
+<%= link_to 'Volver', pages_path %>

@@ -1,0 +1,37 @@
+<h1>Registrar personaje</h1>
+
+<% error_message = @character.errors.size == 1 ? "Error" : "Errors" if @character.errors.size > 0 %>
+
+<% if error_message %>
+  <div id="error_explanation">
+    <h2><%= "#{error_message} impidieron registrar el personaje:" %></h2>
+    <ul>
+      <% @character.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @character, url: pages_path) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.label :house %>
+    <%= form.text_field :house %>
+  </div>
+
+  <div>
+    <%= form.submit "Registrar" %>
+  </div>
+<% end %>
+
+
